@@ -9,6 +9,8 @@ console.log('Connected to Database')
 const db = client.db('star-wars-quotes')
 const quotesCollection = db.collection('quotes')
 
+app.set('view engine', 'ejs')
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
@@ -20,6 +22,7 @@ app.get('/', (req, res) => {
       console.log(results)
     })
     .catch(error => console.error(error))
+    res.render('index.ejs', { quotes: res })
     const cursor = db.collection('quotes').find()
     console.log(cursor)
     res.sendFile( __dirname + '/index.html')
