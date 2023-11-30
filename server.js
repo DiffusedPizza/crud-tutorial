@@ -14,18 +14,16 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-
     db.collection('quotes')
     .find()
     .toArray()
-    .then(results => {
-      console.log(results)
+    .then(results =>{
+      res.render('index.ejs', { quotes: results })
     })
     .catch(error => console.error(error))
-    res.render('index.ejs', { quotes: res })
-    const cursor = db.collection('quotes').find()
-    console.log(cursor)
-    res.sendFile( __dirname + '/index.html')
+    // const cursor = db.collection('quotes').find()
+    // console.log(cursor)
+    // res.sendFile( __dirname + '/index.html')
   });
 
 app.post('/quotes', (req, res) => {
